@@ -34,13 +34,20 @@ export default class Home extends Component {
     render() {
         return (
             <div className='home-grid-container'>
-                {this.state.products.map(product => 
-                    <div key={product._id} className='home-product-container'>
-                        <h4>{product.name}</h4>
-                        <p>{product.price}</p>
-                    </div>
-                )}
+                {this.state.products.map((product) => (
+                        <div key={product._id} className="card mb-3">
+                            <h3 className="card-header">{product.name}</h3>
+                            <div className="card-body">
+                                <h5 className="card-title">{product.price} BGN</h5>
+                                <h6 className="card-subtitle text-muted">{product.category}</h6>
+                            </div>
+                            <img style={{height: '200px', width: '100%', display: 'block'}} src="https://upload.wikimedia.org/wikipedia/commons/8/85/Smiley.svg" alt="product" />
+                            <div className="card-body">
+                                <p className="card-text">{product.description}</p>
+                            </div>
+                        </div>
+                    ))}
             </div>
-        )
+        );
     }
 }
