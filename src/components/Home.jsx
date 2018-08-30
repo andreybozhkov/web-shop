@@ -19,19 +19,30 @@ export default class Home extends Component {
 
                     requester.get('appdata', 'products', 'kinvey')
                         .then(res1 => {
-                            requester.userDelete(sessionStorage.userId, sessionStorage.userPass, sessionStorage.username);
-                            sessionStorage.removeItem('authtoken');
-                            sessionStorage.removeItem('userId');
-                            sessionStorage.removeItem('userPass');
-                            sessionStorage.removeItem('username');
+                            let promisedMap = res1.map((prod) => {
+                                return requester.get('appdata', 'categories', 'kinvey', { '_id': prod.category} )
+                                    .then((cat) => {
+                                        prod.categoryName = cat[0].name;
+                                        return prod;
+                                    });
+                                })
+                            Promise.all(promisedMap)
+                                .then((values) => {
+                                    requester.userDelete(sessionStorage.userId, sessionStorage.userPass, sessionStorage.username);
+                                    sessionStorage.removeItem('authtoken');
+                                    sessionStorage.removeItem('userId');
+                                    sessionStorage.removeItem('userPass');
+                                    sessionStorage.removeItem('username');
 
-                            this.setState({ products: res1 });
-                        });
+                                    this.setState({products: values});
+                                });
+                    });
                 });
         }
     }
     
     render() {
+        console.log(this.state.products);
         return (
             <div className='home-grid-container'>
                 {this.state.products.map((product) => (
@@ -39,7 +50,7 @@ export default class Home extends Component {
                             <h3 className="card-header">{product.name}</h3>
                             <div className="card-body">
                                 <h5 className="card-title">{product.price} BGN</h5>
-                                <h6 className="card-subtitle text-muted">{product.category}</h6>
+                                <h6 className="card-subtitle text-muted">{product.categoryName}</h6>
                             </div>
                             <img style={{height: '200px', width: '100%', display: 'block'}} src="https://upload.wikimedia.org/wikipedia/commons/8/85/Smiley.svg" alt="product" />
                             <div className="card-body">
