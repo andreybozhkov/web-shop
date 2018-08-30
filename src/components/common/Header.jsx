@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../../style/header.css';
 
 export default class Header extends Component {
     render() {
@@ -16,6 +17,18 @@ export default class Header extends Component {
                         </li>
                     </ul>
                 </div>
+
+                <ul className="navbar-nav mr-auto authentication">
+                    <li className="nav-item">
+                        <a className="nav-link" href="/register">Register</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/login">Login</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
             </nav>
         )
     }
