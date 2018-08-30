@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import '../style/home.css';
+import '../../style/home.css';
+import Product from './Product';
 
-import requester from '../services/requester';
+import requester from '../../services/requester';
 
-export default class Home extends Component {
-    constructor(props) {
+export default class ProductList extends Component {
+    constructor(props){
         super(props);
         this.state = { products: [] };
     }
+
     componentDidMount() {
         if (!sessionStorage.authtoken) {
             requester.post('user', '', 'basic')
@@ -55,23 +57,13 @@ export default class Home extends Component {
             });
         }
     }
-    
+
     render() {
-        return (
+        return(
             <div className='home-grid-container'>
                 {this.state.products.map((product) => (
-                        <div key={product._id} className="card mb-3">
-                            <h3 className="card-header">{product.name}</h3>
-                            <div className="card-body">
-                                <h5 className="card-title">Price: {product.price} BGN</h5>
-                                <h6 className="card-subtitle text-muted">Category: {product.categoryName}</h6>
-                            </div>
-                            <img style={{height: '200px', width: '100%', display: 'block'}} src="https://upload.wikimedia.org/wikipedia/commons/8/85/Smiley.svg" alt="product" />
-                            <div className="card-body">
-                                <p className="card-text">Description: {product.description}</p>
-                            </div>
-                        </div>
-                    ))}
+                    <Product key={product._id} productInfo={product}/>
+                ))}
             </div>
         );
     }
