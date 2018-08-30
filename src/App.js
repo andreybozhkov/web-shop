@@ -6,6 +6,7 @@ import Header from './components/common/Header';
 import RegisterForm from './components/user/RegisterForm';
 import Logout from './components/user/Logout';
 import LoginForm from './components/user/LoginForm';
+import CreateProduct from './components/products/CreateProduct';
 
 class App extends Component {
   constructor(props){
@@ -37,6 +38,7 @@ class App extends Component {
         <Route path='/register' exact render={(props) => <RegisterForm {...props} handleLoginProp={this.loggedInChecker} />} />
         <Route path='/login' exact render={(props) => <LoginForm {...props} handleLoginProp={this.loggedInChecker} />} />
         <Route path='/logout' render={(props) => <Logout {...props} handleLogoutProp={this.loggedInChecker} />} />
+        <Route path='/createProduct' component={CreateProduct}/>
       </div>
     );
   }

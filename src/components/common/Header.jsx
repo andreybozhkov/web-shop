@@ -17,6 +17,9 @@ export default class Header extends Component {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
+                        {this.props.isLoggedIn === true && <li className="nav-item">
+                            <NavLink className="nav-link" to="/createProduct">Create Product</NavLink>
+                        </li>}
                     </ul>
                 </div>
 
